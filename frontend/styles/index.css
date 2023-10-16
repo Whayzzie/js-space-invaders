@@ -1,47 +1,44 @@
 @font-face {
-    font-family: pixel;
-    src: url(police/VCR_OSD_MONO_1.001.ttf);
+    font-family: VCR;
+    src: url(../fonts/VCR_OSD_MONO_1.001.ttf);
+}
+
+*{
+    padding: 0;
+    margin: 0;
 }
 
 html {
     background-color: black;
     color: rgb(255, 255, 255);
-    padding: 0;
-    margin: 0;
-    font-family: pixel;
+    font-family: VCR;
     font-size: 32px;
 }
-
-.tableau {
+#joueurs{
     width: 100%;
     height: auto;
     display: flex;
+    justify-content: center;
     gap: 50px;
-    justify-content: center;
 }
 
-.score {
-    display: flex;
-    gap: 90px;
-    justify-content: center;
-}
-
-.play {
-    margin-top: 80px;
+#score{
     width: 100%;
     height: auto;
-    display: block;
+    display: flex;
+    justify-content: center;
+    gap: 125px;
+}
+
+#accueil{   
+    width: 100%;
+    height: auto;
     text-align: center;
 }
 
-.play img {
-    image-resolution: 40 X 40;
-
-}
-
-.credit {
+#credit{
     width: 100%;
+    height: auto;
     display: flex;
-    justify-content: center;
-    bottom: 20px;
+    justify-content: space-between;
 }

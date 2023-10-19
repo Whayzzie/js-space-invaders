@@ -38,28 +38,11 @@ html {
     text-align: center;
 }
 
-#game {
-    background-color: rgb(36, 35, 35);
-    border: 1px solid white;
-    aspect-ratio: 4 / 3;
-    height: 600px;
-    width: auto;
-    position: relative;
-    left: 600px;
-}
-
-#joueur {
-    position: absolute;
-    height: 30px;
-    width: 60px;
-    bottom: 10px;
-    background-image: url(../sprites/player.png);
-    background-size: contain;
-}
-
 #credit {
+    position: relative;
+    top: 100%;
     width: 100%;
     height: auto;
     display: flex;
     justify-content: space-between;
-}
+} 

@@ -4,47 +4,25 @@ const playerWidth = player.offsetWidth;
 const gameAreaWidth = gameArea.offsetWidth;
 const projectileWidth = 2;
 const projectileHeight = 20;
-const projectileSpeed = 9;
+const projectileSpeed = 11;
 
-let playerX = gameAreaWidth/2;
+let playerX = gameAreaWidth/2 - playerWidth/2;
 let enTir = false;
 
-
+// Déplacer le joueur
 function updateGameArea() {
-    // Déplacer le joueur
     player.style.left = `${playerX}px`;
     requestAnimationFrame(updateGameArea);
 }
 
+// Déplacer le joueur
 function startMoving(direction) {
     if (direction === 'left' && playerX > 0) {
-        // Déplacer le joueur vers la gauche
-        playerX -= 6; // Ajustez la valeur pour changer la vitesse
-    } else if (direction === 'right' && playerX < gameAreaWidth - playerWidth) {
-        // Déplacer le joueur vers la droite
-        playerX += 6; // Ajustez la valeur pour changer la vitesse
+        playerX -= 6; 
+    } else if (direction === 'right' && playerX < gameAreaWidth ) {
+        playerX += 6;
     }
 }
-
-document.addEventListener('keydown', function (event) {
-    if (event.key === ' '  && enTir === false || event.key === 'Spacebar' && enTir === false) {
-        fireProjectile(playerX + playerWidth / 2);
-        enTir = true;
-    }
-    if (event.key === 'ArrowLeft' && playerX > 0) {
-        startMoving('left');
-    } else if (event.key === 'ArrowRight' && playerX < gameAreaWidth - playerWidth) {
-        startMoving('right');
-    }
-      // Tirer un projectile lorsque la barre d'espace est pressée
-
-});
-
-document.addEventListener('keyup', function (event) {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-        // Arrêter le mouvement lorsque la touche est relâchée
-    }
-});
 
 function fireProjectile(positionX = playerX) {
     const projectile = document.createElement('div');
@@ -75,6 +53,24 @@ function fireProjectile(positionX = playerX) {
 
     moveProjectile();
 }
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowLeft' && playerX > 0) {
+        startMoving('left');
+    } else if (event.key === 'ArrowRight' && playerX < gameAreaWidth - playerWidth) {
+        startMoving('right');
+    }
+    if (event.key === ' '  && enTir === false || event.key === 'Spacebar' && enTir === false) {
+        fireProjectile(playerX + playerWidth / 2);
+        enTir = true;
+    }
+});
+
+// Arrêter le mouvement lorsque la touche est relâchée
+document.addEventListener('keyup', function (event) {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    }
+});
 
 // Démarrer l'animation
 updateGameArea();

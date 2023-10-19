@@ -3,7 +3,7 @@
     src: url(../fonts/VCR_OSD_MONO_1.001.ttf);
 }
 
-*{
+* {
     padding: 0;
     margin: 0;
 }
@@ -14,7 +14,8 @@ html {
     font-family: VCR;
     font-size: 32px;
 }
-#joueurs{
+
+#joueurs {
     width: 100%;
     height: auto;
     display: flex;
@@ -22,21 +23,41 @@ html {
     gap: 50px;
 }
 
-#score{
+#score {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
     gap: 125px;
+    margin-bottom: 100px;
 }
 
-#accueil{   
+#accueil {
     width: 100%;
     height: auto;
     text-align: center;
 }
 
-#credit{
+#game {
+    background-color: rgb(36, 35, 35);
+    border: 1px solid white;
+    aspect-ratio: 4 / 3;
+    height: 600px;
+    width: auto;
+    position: relative;
+    left: 600px;
+}
+
+#joueur {
+    position: absolute;
+    height: 30px;
+    width: 60px;
+    bottom: 10px;
+    background-image: url(../sprites/player.png);
+    background-size: contain;
+}
+
+#credit {
     width: 100%;
     height: auto;
     display: flex;

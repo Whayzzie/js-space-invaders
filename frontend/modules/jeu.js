@@ -52,7 +52,7 @@ function fireProjectile(positionX = playerX) {
     }
 
     moveProjectile();
-}
+}   
 
 document.addEventListener('keydown', function (event) {
     if (event.key === 'ArrowLeft' && playerX > 0) {

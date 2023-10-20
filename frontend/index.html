@@ -7,24 +7,23 @@
     <title>Space Invaders</title>
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/jeu.css">
-
 </head>
 
 <body>
-
     <div id="joueurs">
         <p>SCORE&#60;1&#62;</p>
         <p>HI-SCORE</p>
         <p>SCORE&#60;2&#62;</p>
     </div>
+
     <div id="score">
         <p>0000</p>
         <p>0000</p>
-        <p>0000</p>
-
+        <p><span id="score-joueur-deux">0000</span></p>
     </div>
+
     <div id="accueil">
-        <p>Play</p>
+        <p><span id="bouton-jouer">Play</span></p>
         <p>Space Invaders</p><br>
         <p>*SCORE ADVANCE TABLE*</p>
         <p><img src="sprites/extra.png" alt="Ennemi vaisseau" width="64px">=? Mystery</p>
@@ -32,15 +31,25 @@
         <p><img src="sprites/green.png" alt="Ennemi 3">=20 Mystery</p>
         <p><img src="sprites/red.png" alt="Ennemi 4">=10 Mystery</p>
     </div>
+
     <div id="game">
         <span class="extra"><img src="sprites/red.png" alt="Ennemi"></span>
+
         <div id="joueur"></div>
+
         <div id="projectile-container"></div>
+
         <div id="credit">
-            <p>3 <img src="sprites/player.png" alt="Vie une du joueur"> <img src="sprites/player.png" alt="Vie deux du joueur"> <img src="sprites/player.png" alt="Vie trois du joueur"></p>
+            <p>3 <img src="sprites/player.png" alt="Vie une du joueur"> <img src="sprites/player.png"
+                    alt="Vie deux du joueur"> <img src="sprites/player.png" alt="Vie trois du joueur"></p>
             <p>Credit 00</p>
         </div>
+
     </div>
+    <div id="retour-menu">
+        <p>retour menu</p>
+    </div>
+
     <script src="modules/jeu.js"></script>
     <script src="modules/general.js"></script>
 </body>

@@ -86,49 +86,5 @@ function createEnemiesGrid() {
     }
 }
 
-function moveEnemiesHorizontally() {
-    const enemies = document.querySelectorAll('.enemy');
-
-    enemies.forEach((enemy) => {
-        let enemyX = parseInt(getComputedStyle(enemy).left);
-
-        // Move the enemy
-        enemyX += enemySpeed * enemyDirection;
-        enemy.style.transform = `translateX(${enemyX}px)`;
-
-        // Check if the enemy has reached the border
-        const containerWidth = enemiesContainer.offsetWidth;
-
-        if (enemyX <= 0 || enemyX + enemy.offsetWidth >= containerWidth) {
-            // Change direction when the enemy touches the border
-            enemyDirection *= -1;
-        }
-    });
-
-    // Repeat the movement in the next animation frame
-    requestAnimationFrame(moveEnemiesHorizontally);
-}
-
-function checkCollision(projectile) {
-
-
-    enemies.forEach((enemy) => {
-        const enemyRect = enemy.getBoundingClientRect();
-        const projectileRect = projectile.getBoundingClientRect();
-
-        if (
-            projectileRect.bottom >= enemyRect.top &&
-            projectileRect.top <= enemyRect.bottom &&
-            projectileRect.right >= enemyRect.left &&
-            projectileRect.left <= enemyRect.right
-        ) {
-            // Collision detected, remove both projectile and enemy
-            projectile.remove();
-            enemy.remove();
-        }
-    });
-}
-
-checkCollision();
 createEnemiesGrid()
 updateGameArea();

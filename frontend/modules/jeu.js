@@ -6,8 +6,10 @@ const projectileWidth = 2;
 const projectileHeight = 20;
 const projectileSpeed = 11;
 
-let playerX = gameAreaWidth/2 - playerWidth/2;
+let playerX = gameAreaWidth / 2 - playerWidth / 2;
 let enTir = false;
+
+const enemies = document.querySelectorAll('.enemy');
 
 // Déplacer le joueur
 function updateGameArea() {
@@ -18,8 +20,8 @@ function updateGameArea() {
 // Déplacer le joueur
 function startMoving(direction) {
     if (direction === 'left' && playerX > 0) {
-        playerX -= 6; 
-    } else if (direction === 'right' && playerX < gameAreaWidth ) {
+        playerX -= 6;
+    } else if (direction === 'right' && playerX < gameAreaWidth) {
         playerX += 6;
     }
 }
@@ -60,7 +62,7 @@ document.addEventListener('keydown', function (event) {
     } else if (event.key === 'ArrowRight' && playerX < gameAreaWidth - playerWidth) {
         startMoving('right');
     }
-    if (event.key === ' '  && enTir === false || event.key === 'Spacebar' && enTir === false) {
+    if (event.key === ' ' && enTir === false || event.key === 'Spacebar' && enTir === false) {
         fireProjectile(playerX + playerWidth / 2);
         enTir = true;
     }
@@ -72,5 +74,61 @@ document.addEventListener('keyup', function (event) {
     }
 });
 
-// Démarrer l'animation
+const enemiesContainer = document.querySelector('#enemies-container');
+
+function createEnemiesGrid() {
+    for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 11; col++) {
+            const enemy = document.createElement('div');
+            enemy.className = 'enemy';
+            enemiesContainer.appendChild(enemy);
+        }
+    }
+}
+
+function moveEnemiesHorizontally() {
+    const enemies = document.querySelectorAll('.enemy');
+
+    enemies.forEach((enemy) => {
+        let enemyX = parseInt(getComputedStyle(enemy).left);
+
+        // Move the enemy
+        enemyX += enemySpeed * enemyDirection;
+        enemy.style.transform = `translateX(${enemyX}px)`;
+
+        // Check if the enemy has reached the border
+        const containerWidth = enemiesContainer.offsetWidth;
+
+        if (enemyX <= 0 || enemyX + enemy.offsetWidth >= containerWidth) {
+            // Change direction when the enemy touches the border
+            enemyDirection *= -1;
+        }
+    });
+
+    // Repeat the movement in the next animation frame
+    requestAnimationFrame(moveEnemiesHorizontally);
+}
+
+function checkCollision(projectile) {
+
+
+    enemies.forEach((enemy) => {
+        const enemyRect = enemy.getBoundingClientRect();
+        const projectileRect = projectile.getBoundingClientRect();
+
+        if (
+            projectileRect.bottom >= enemyRect.top &&
+            projectileRect.top <= enemyRect.bottom &&
+            projectileRect.right >= enemyRect.left &&
+            projectileRect.left <= enemyRect.right
+        ) {
+            // Collision detected, remove both projectile and enemy
+            projectile.remove();
+            enemy.remove();
+        }
+    });
+}
+
+checkCollision();
+createEnemiesGrid()
 updateGameArea();

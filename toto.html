@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Invaders</title>
+  <style>
+    #game-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      border: 1px solid #ccc;
+    }
+
+    .enemy {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Enemies will be dynamically created here -->
+  </div>
+
+  <script>
+    // Configuration
+    const enemyWidth = 20;
+    const enemyHeight = 20;
+    const containerWidth = 400;
+    const containerHeight = 400;
+    const enemySpeed = 5;
+
+    // Create enemies
+    const enemies = [
+      { x: 10, y: 10, direction: 1 }, // x and y are starting positions, direction is 1 for right, -1 for left
+      { x: 50, y: 10, direction: 1 },
+      // Add more enemies as needed
+    ];
+
+    // Function to move enemies
+    function moveEnemies() {
+      const gameContainer = document.getElementById('game-container');
+
+      enemies.forEach(enemy => {
+        enemy.x += enemySpeed * enemy.direction;
+
+        // Check if enemy hits the container boundary
+        if (enemy.x + enemyWidth > containerWidth || enemy.x < 0) {
+          enemy.direction *= -1; // Change direction
+          enemy.y += 20; // Move down
+        }
+
+        // Update enemy position
+        const enemyElement = document.getElementById(`enemy-${enemies.indexOf(enemy)}`);
+        enemyElement.style.left = `${enemies.x}px`;
+        enemyElement.style.top = `${enemies.y}px`;
+      });
+    }
+
+    // Initialize the game
+    function initGame() {
+      const gameContainer = document.getElementById('game-container');
+
+      // Create enemies in the game container
+      enemies.forEach((enemy, index) => {
+        const enemyElement = document.createElement('div');
+        enemyElement.className = 'enemy';
+        enemyElement.id = `enemy-${index}`;
+        enemyElement.style.left = `${enemy.x}px`;
+        enemyElement.style.top = `${enemy.y}px`;
+
+        gameContainer.appendChild(enemyElement);
+      });
+
+      // Set up a game loop to continuously move enemies
+      setInterval(moveEnemies, 100);
+    }
+
+    // Start the game
+    window.onload = initGame;
+  </script>
+</body>
+</html>

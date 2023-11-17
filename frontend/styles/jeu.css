@@ -18,16 +18,19 @@
 }
 #enemies-container {
     position: absolute;
-    top: 50px; /* Adjust as needed */
-    left: 50px; /* Adjust as needed */
+    top: 50px;
+    left: 50px;
     display: grid;
     grid-template-columns: repeat(11, 1fr);
-    grid-gap: 10px; /* Adjust as needed */
+    grid-gap: 10px;
+}
+#aliens {
+    position: absolute;
 }
 
 .enemy {
     position: relative;
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    background-color: red; /* Adjust as needed */
+    width: 25px;
+    height: 25px;
+    background-color: red; 
 }

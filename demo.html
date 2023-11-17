@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #111;
+        }
+
+        .game-area {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border: 2px solid #fff;
+        }
+
+        .alien {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #0f0;
+        }
+    </style>
+    <title>Space Invaders</title>
+</head>
+
+<body>
+    <div class="game-area">
+    </div>
+    <script>
+        const alienContainer = document.querySelector('.game-area');
+       
+        document.addEventListener('DOMContentLoaded', function () {
+            const alien = document.getElementsByClassName('alien');
+            let direction = 1; // 1 for right, -1 for left
+            let isGameOver = false;
+
+            function createEnemiesGrid() {  
+                for (let row = 0; row < 5; row++) {
+                    for (let col = 0; col < 11; col++) {
+                        const alien = document.createElement('div');
+                        alien.className = 'alien';
+                        alienContainer.appendChild(alien);
+                    }
+                }
+            }     
+            createEnemiesGrid();
+
+            function moveAlien() {
+                if (!isGameOver) {
+                    const alienPosition = parseInt(getComputedStyle(alien).left);
+                    const alienBottom = parseInt(getComputedStyle(alien).bottom);
+                    
+                    if (alienPosition == 0) {
+                        // Change direction
+                        direction = 1;
+
+                        // Move the alien down
+                        alien.style.bottom = (alienBottom - 30) + 'px';
+                        alien.style.left = 1 + 'px';
+                        // Check if the alien has reached the bottom
+                    }
+
+                    // Move the alien horizontally
+                    alien.style.left = (alienPosition + direction * 5) + 'px';
+
+                    // Check if the alien has reached the border
+                    if (alienPosition == 370) {
+                        // Change direction
+                        direction = -1;
+
+                        // Move the alien down
+                        alien.style.bottom = (alienBottom - 30) + 'px';
+                        alien.style.left = 365 + 'px';
+                    }
+                    if (alienBottom <= 0) {
+                            gameOver();
+                        }
+                        requestAnimationFrame(moveAlien);
+                    }
+                }
+
+                function gameOver() {
+                    isGameOver = true;
+                    alert('Game Over!');
+                }
+                moveAlien();
+        });
+
+        
+    </script>
+</body>
+
+</html>

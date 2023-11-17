@@ -5,17 +5,76 @@ const gameAreaWidth = gameArea.offsetWidth;
 const projectileWidth = 2;
 const projectileHeight = 20;
 const projectileSpeed = 11;
+const enemiesContainer = document.querySelector('#enemies-container');
+const aliens = document.querySelector('#aliens');
+const aliensWidth = aliens.offsetWidth;
 
 let playerX = gameAreaWidth / 2 - playerWidth / 2;
 let enTir = false;
 
 const enemies = document.querySelectorAll('.enemy');
 
-// Déplacer le joueur
-function updateGameArea() {
-    player.style.left = `${playerX}px`;
-    requestAnimationFrame(updateGameArea);
+console.log(gameAreaWidth);
+
+    let isGameOver = false;
+
+function moveAlien() {
+        if (!isGameOver) {
+            let direction = 1; // 1 for right, -1 for left
+            const alienPosition = parseInt(getComputedStyle(aliens).left);
+            const alienBottom = parseInt(getComputedStyle(aliens).bottom);
+
+            if (alienPosition == 0) {
+                // Change direction
+                direction = 1;
+
+                // Move the alien down
+                aliens.style.bottom = (alienBottom - 30) + 'px';
+                aliens.style.left = 1 + 'px';
+                // Check if the alien has reached the bottom
+            }
+
+            // Move the alien horizontally
+            aliens.style.left = (alienPosition + direction) + 'px';
+
+            // Check if the alien has reached the border
+            if (alienPosition >= gameAreaWidth - aliensWidth) {
+                // Change direction
+                direction = -1;
+
+                // Move the alien down
+                aliens.style.bottom = (alienBottom - 30) + 'px';
+                aliens.style.left = 365 + 'px';
+            }
+            if (alienBottom <= 0) {
+                gameOver();
+            }
+            requestAnimationFrame(moveAlien);
+            ;
+        }
+    }
+
+function gameOver() {
+    isGameOver = true;
+    alert('Game Over!');
 }
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowLeft' && playerX > 0) {
+        startMoving('left');
+    } else if (event.key === 'ArrowRight' && playerX < gameAreaWidth - playerWidth) {
+        startMoving('right');
+    }
+    if (event.key === ' ' && enTir === false || event.key === 'Spacebar' && enTir === false) {
+        fireProjectile(playerX + playerWidth / 2);
+        enTir = true;
+    }
+});
+
+// Arrêter le mouvement lorsque la touche est relâchée
+document.addEventListener('keyup', function (event) {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    }
+});
 
 // Déplacer le joueur
 function startMoving(direction) {
@@ -54,27 +113,8 @@ function fireProjectile(positionX = playerX) {
     }
 
     moveProjectile();
-}   
+}
 
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'ArrowLeft' && playerX > 0) {
-        startMoving('left');
-    } else if (event.key === 'ArrowRight' && playerX < gameAreaWidth - playerWidth) {
-        startMoving('right');
-    }
-    if (event.key === ' ' && enTir === false || event.key === 'Spacebar' && enTir === false) {
-        fireProjectile(playerX + playerWidth / 2);
-        enTir = true;
-    }
-});
-
-// Arrêter le mouvement lorsque la touche est relâchée
-document.addEventListener('keyup', function (event) {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-    }
-});
-
-const enemiesContainer = document.querySelector('#enemies-container');
 
 function createEnemiesGrid() {
     for (let row = 0; row < 5; row++) {
@@ -86,5 +126,13 @@ function createEnemiesGrid() {
     }
 }
 
+
+
+// Déplacer le joueur
+function updateGameArea() {
+    player.style.left = `${playerX}px`;
+    requestAnimationFrame(updateGameArea);
+}
 createEnemiesGrid()
 updateGameArea();
+moveAlien();
